@@ -2,8 +2,11 @@ package com.ejemplo.demo.controller;
 
 import com.ejemplo.demo.constant.ViewConstant;
 import com.ejemplo.demo.model.ContactModel;
+import com.ejemplo.demo.service.ContactService;
 import org.apache.juli.logging.Log;
 import org.apache.juli.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +19,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ContactController {
 
     private static final Log LOG = LogFactory.getLog(ContactController.class);
+
+    @Autowired
+    @Qualifier("contactServiceImpl")
+    private ContactService contactService;
 
     @GetMapping("/cancel")
     public String cancel(){
@@ -33,7 +40,11 @@ public class ContactController {
     @PostMapping("/addcontact")
     public String addContact(@ModelAttribute(name = "contactModel") ContactModel contactModel,
                                 Model model){
-        model.addAttribute("result", 1);
+        if(null != contactService.addContact(contactModel)){
+            model.addAttribute("result", 1);
+        } else {
+            model.addAttribute("result", 0);
+        }
         LOG.info("Method: addContact()" + " -- Params: " + contactModel.toString());
         return ViewConstant.CONTACTS;
     }
