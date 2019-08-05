@@ -7,6 +7,7 @@ import org.apache.juli.logging.Log;
 import org.apache.juli.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -28,15 +29,17 @@ public class ContactController {
         return "redirect:/contacts/showcontacts";
     }
 
-
+    @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/contactform")
     public String redirectContactForm(@RequestParam(name="id", required = false) int id,
             Model model){
+        LOG.info("Method: redirectContactForm()");
         ContactModel contact = new ContactModel();
         if(id != 0){
             contact = contactService.findContactByIdModel(id);
         }
         model.addAttribute("contactModel", contact);
+        LOG.info("Returning /contactform");
         return ViewConstant.CONTACT_FORM;
     }
 
