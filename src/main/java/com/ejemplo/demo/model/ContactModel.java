@@ -2,6 +2,7 @@ package com.ejemplo.demo.model;
 
 public class ContactModel {
 
+    private int id;
     private String firstName;
     private String lastName;
     private String telephone;
@@ -10,11 +11,20 @@ public class ContactModel {
     public ContactModel() {
     }
 
-    public ContactModel(String firstName, String lastName, String telephone, String city) {
+    public ContactModel(int id, String firstName, String lastName, String telephone, String city) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.telephone = telephone;
         this.city = city;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -52,7 +62,8 @@ public class ContactModel {
     @Override
     public String toString() {
         return "ContactModel{" +
-                "firstName='" + firstName + '\'' +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", telephone='" + telephone + '\'' +
                 ", city='" + city + '\'' +
