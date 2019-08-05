@@ -1,13 +1,11 @@
 package com.ejemplo.demo.entity;
 
-import org.springframework.security.core.GrantedAuthority;
-
 import javax.persistence.*;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
+@Table(name = "users")
 public class User {
 
     @Id
@@ -21,12 +19,12 @@ public class User {
     private boolean enabled;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
-    private Set<UserRole> userRole = new HashSet<>();
+    private Set<UserRole> userRole = new HashSet<UserRole>();
 
     public User() {
     }
 
-    public User(String username, String password, boolean enabled, boolean b, boolean b1, boolean b2, List<GrantedAuthority> authorities) {
+    public User(String username, String password, boolean enabled) {
         this.username = username;
         this.password = password;
         this.enabled = enabled;
