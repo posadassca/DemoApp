@@ -1,0 +1,12 @@
+com.ejemplo.demo
+com.ejemplo.demo.component
+com.ejemplo.demo.configuration
+com.ejemplo.demo.constant
+com.ejemplo.demo.controller
+com.ejemplo.demo.converter
+com.ejemplo.demo.entity
+com.ejemplo.demo.model
+com.ejemplo.demo.repository
+com.ejemplo.demo.service
+com.ejemplo.demo.service.impl
+com.udemy.backendninja
