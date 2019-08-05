@@ -8,6 +8,8 @@ import org.apache.juli.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -58,7 +60,9 @@ public class ContactController {
     @GetMapping("/showcontacts")
     public ModelAndView showContacts(){
         ModelAndView mav = new ModelAndView(ViewConstant.CONTACTS);
+        UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         mav.addObject("contacts", contactService.listAllContacts());
+        mav.addObject("username", user.getUsername());
         return mav;
     }
 
